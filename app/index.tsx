@@ -1,6 +1,8 @@
-import { Button, Text, View } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
   return (
     <View
       style={{
@@ -9,22 +11,43 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text
+      <Text style={style.title}>Dc Downloader</Text>
+      <Text style={{ fontStyle: "italic", fontSize: 10 }}>
+        Masih tahap development fitur akan terus di tambahkan
+      </Text>
+      <View
         style={{
-          fontSize: 25,
-          color: "green",
-          fontWeight: "bold",
-          shadowColor: "black",
-          shadowOffset: { width: 2, height: 2 },
-          shadowOpacity: 0.5,
-          shadowRadius: 3,
-          paddingBottom: 10,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
         }}
       >
-        Welcome to demtimcod
-      </Text>
-
-      <Button title="Log in" onPress={() => alert("hello anjai")} />
+        {["TikTok"].map((title) => (
+          <Pressable
+            key={title}
+            onPress={() => router.push(`/${title.toLowerCase()}` as any)}
+            style={({ pressed }) => ({
+              width: 140,
+              height: 80,
+              margin: 8,
+              borderRadius: 8,
+              backgroundColor: pressed ? "#1976D2" : "#2196F3",
+              justifyContent: "center",
+              alignItems: "center",
+            })}
+          >
+            <Text style={{ color: "white", fontWeight: "600" }}>{title}</Text>
+          </Pressable>
+        ))}
+      </View>
     </View>
   );
 }
+
+const style = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    fontWeight: "600",
+    marginBottom: 12,
+  },
+});
